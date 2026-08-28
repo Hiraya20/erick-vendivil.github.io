@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Erick Vendivil | SME & AI Engineer Portfolio</title>
+  
+  <!-- OpenGraph Metadata for LinkedIn Previews -->
+  <meta property="og:title" content="Erick Vendivil | Tech Portfolio">
+  <meta property="og:description" content="Google Workspace SME, AI Engineer & Databricks Certified Data Engineer.">
+  <meta property="og:type" content="website">
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <style>
+    :root {
+      --bg-dark: #090d16;
+      --bg-surface: rgba(30, 41, 59, 0.6);
+      --accent: #0ea5e9; 
+      --accent-glow: rgba(14, 165, 233, 0.35);
+      --accent-purple: #a855f7;
+      --accent-purple-glow: rgba(168, 85, 247, 0.25);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-subtle: rgba(51, 65, 85, 0.7);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { 
+      font-family: 'Plus Jakarta Sans', sans-serif; 
+      background-color: var(--bg-dark); 
+      color: var(--text-main); 
+      line-height: 1.7; 
+      overflow-x: hidden; 
+      position: relative;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+
+    /* Ambient Glowing Blobs */
+    .blob { position: absolute; filter: blur(120px); z-index: -1; opacity: 0.5; animation: float 12s infinite alternate ease-in-out; border-radius: 50%; pointer-events: none; }
+    .blob-1 { top: -5%; left: -5%; width: 600px; height: 600px; background: var(--accent-glow); }
+    .blob-2 { top: 35%; right: -5%; width: 650px; height: 650px; background: var(--accent-purple-glow); animation-delay: -6s; }
+    @keyframes float { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(50px, 70px) scale(1.1); } }
+
+    .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+
+    /* Header Nav */
+    header { position: fixed; top: 0; width: 100%; background: rgba(9, 13, 22, 0.75); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid transparent; z-index: 100; transition: all 0.4s ease; }
+    header.scrolled { background: rgba(9, 13, 22, 0.95); border-bottom: 1px solid var(--border-subtle); box-shadow: 0 10px 30px rgba(0,0,0,0.7); }
+    nav { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 22px 20px; transition: padding 0.4s ease; }
+    header.scrolled nav { padding: 12px 20px; } 
+
+    .logo { font-size: 24px; font-weight: 800; letter-spacing: -0.5px; transition: transform 0.3s; cursor: pointer; text-decoration: none; color: var(--text-main); }
+    .logo:hover { transform: scale(1.05); text-shadow: 0 0 15px var(--accent-glow); }
+    .logo span { color: var(--accent); }
+
+    .mobile-menu-btn { display: none; font-size: 24px; cursor: pointer; color: var(--text-main); }
+    .nav-links { display: flex; gap: 40px; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 14.5px; font-weight: 600; transition: color 0.3s; position: relative; padding-bottom: 5px; }
+    .nav-links a:hover { color: var(--text-main); }
+    .nav-links a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 50%; background-color: var(--accent); transition: all 0.3s ease; transform: translateX(-50%); border-radius: 2px; box-shadow: 0 0 10px var(--accent); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-links a.active { color: var(--text-main); }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    section { padding: 100px 0; border-bottom: 1px solid var(--border-subtle); scroll-margin-top: 80px; }
+
+    /* Hero Section */
+    #home { display: flex; align-items: center; justify-content: space-between; min-height: 100vh; padding-top: 100px; }
+    .hero-text { max-width: 650px; }
+    .greeting { font-family: 'JetBrains Mono', monospace; color: var(--accent); font-size: 14px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 15px; display: block; }
+    
+    .hero-text h1 { font-size: 50px; font-weight: 800; line-height: 1.25; margin-bottom: 25px; min-height: 140px; }
+    .typed-text { background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .cursor { display: inline-block; width: 4px; background-color: var(--accent); animation: blink 1s infinite; margin-left: 5px; vertical-align: middle; }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    .hero-text p { color: var(--text-muted); font-size: 17.5px; margin-bottom: 35px; max-width: 580px; }
+    
+    .btn-group { display: flex; gap: 15px; flex-wrap: wrap; }
+    .btn { padding: 14px 28px; border-radius: 10px; font-weight: 700; font-size: 14px; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; border: none; }
+    .btn-primary { background: linear-gradient(135deg, #0ea5e9, #0284c7); color: white; box-shadow: 0 0 20px var(--accent-glow); border: 1px solid var(--accent); }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 30px var(--accent-glow); }
+    .btn-outline { background: var(--bg-surface); color: var(--text-main); border: 1px solid var(--border-subtle); backdrop-filter: blur(10px); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-3px); }
+
+    /* Animated Profile Border */
+    .hero-image { position: relative; }
+    .avatar-glow-wrapper {
+      position: relative; width: 370px; height: 370px; border-radius: 30px; padding: 4px;
+      background: linear-gradient(60deg, #0ea5e9, #a855f7, #0284c7, #38bdf8); background-size: 300% 300%;
+      animation: animatedGradientBorder 6s ease infinite; box-shadow: 0 0 30px rgba(14, 165, 233, 0.3);
+    }
+    @keyframes animatedGradientBorder { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+    .image-wrapper { width: 100%; height: 100%; border-radius: 26px; overflow: hidden; background: #0f172a; position: relative; }
+    .image-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+    
+    .status-badge {
+      position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.9); border: 1px solid var(--accent); backdrop-filter: blur(12px);
+      padding: 8px 16px; border-radius: 20px; display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; white-space: nowrap; box-shadow: 0 8px 20px rgba(0,0,0,0.5); z-index: 10;
+    }
+    .status-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 10px #22c55e; animation: pulseDot 2s infinite; }
+    @keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.2); } }
+
+    .stats-row { display: flex; gap: 40px; margin-top: 40px; padding-top: 35px; border-top: 1px solid var(--border-subtle); }
+    .stat-item h3 { font-size: 36px; font-weight: 800; color: var(--text-main); margin-bottom: 5px; display: flex; align-items: center; }
+    .stat-item h3 span { color: var(--accent); }
+    .stat-item p { color: var(--text-muted); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+    .section-title { font-size: 36px; font-weight: 800; margin-bottom: 50px; display: flex; align-items: center; gap: 15px; }
+    .section-title::before { content: ""; width: 40px; height: 4px; background: linear-gradient(90deg, var(--accent), var(--accent-purple)); border-radius: 2px; }
+
+    /* Animated Ticker Marquee */
+    .marquee-wrapper { width: 100vw; margin-left: calc(-50vw + 50%); overflow: hidden; padding: 25px 0; background: rgba(15, 23, 42, 0.5); border-y: 1px solid var(--border-subtle); margin-bottom: 50px; position: relative; backdrop-filter: blur(10px); }
+    .marquee-wrapper::before, .marquee-wrapper::after { content: ''; position: absolute; top: 0; width: 120px; height: 100%; z-index: 2; pointer-events: none; }
+    .marquee-wrapper::before { left: 0; background: linear-gradient(to right, var(--bg-dark), transparent); }
+    .marquee-wrapper::after { right: 0; background: linear-gradient(to left, var(--bg-dark), transparent); }
+    
+    .marquee-track { display: flex; width: max-content; gap: 20px; animation: scrollMarquee 30s linear infinite; }
+    .marquee-track:hover { animation-play-state: paused; }
+    @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    .tool-pill { display: flex; align-items: center; gap: 12px; background: var(--bg-surface); padding: 10px 22px; border-radius: 30px; border: 1px solid var(--border-subtle); transition: all 0.3s ease; cursor: default; backdrop-filter: blur(8px); }
+    .tool-pill i { font-size: 20px; }
+    .tool-pill span { font-size: 13.5px; font-weight: 600; font-family: 'JetBrains Mono', monospace; color: var(--text-main); }
+    .tool-pill:hover { border-color: var(--accent); box-shadow: 0 0 20px var(--accent-glow); transform: scale(1.06); }
+
+    /* Glassmorphic Grid Cards */
+    .grid-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+    .card { 
+      background: var(--bg-surface); padding: 32px; border-radius: 20px; border: 1px solid var(--border-subtle); 
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; overflow: hidden; 
+    }
+    .card:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 25px var(--accent-glow); }
+
+    .tool-card-icon { font-size: 38px; margin-bottom: 20px; display: inline-block; transition: transform 0.4s; }
+    .card:hover .tool-card-icon { transform: scale(1.18) rotate(6deg); }
+    .tool-badge-list { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 18px; }
+    .tool-badge { background: rgba(14, 165, 233, 0.12); color: #38bdf8; border: 1px solid var(--accent-glow); padding: 5px 12px; border-radius: 6px; font-size: 12px; font-family: 'JetBrains Mono', monospace; font-weight: 600; }
+
+    /* Timeline Section */
+    .timeline { position: relative; max-width: 900px; }
+    .timeline::before { content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 2px; background: var(--border-subtle); }
+    .timeline-item { position: relative; padding-left: 40px; margin-bottom: 50px; }
+    .timeline-item::before { content: ''; position: absolute; left: -6px; top: 5px; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px var(--accent); }
+    .timeline-content { background: var(--bg-surface); padding: 35px; border-radius: 20px; border: 1px solid var(--border-subtle); backdrop-filter: blur(10px); transition: transform 0.3s, border-color 0.3s; }
+    .timeline-content:hover { transform: translateY(-3px); border-color: var(--accent); }
+    .timeline-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
+    .timeline-title h3 { font-size: 20px; color: var(--text-main); margin-bottom: 5px; }
+    .timeline-title h4 { font-size: 15px; color: var(--accent); font-weight: 600; }
+    .timeline-date { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 6px 12px; border-radius: 20px; border: 1px solid var(--border-subtle); }
+    .timeline-content ul { list-style: none; margin-top: 15px; }
+    .timeline-content li { color: var(--text-muted); font-size: 14.5px; margin-bottom: 10px; padding-left: 20px; position: relative; }
+    .timeline-content li::before { content: '▹'; position: absolute; left: 0; color: var(--accent); font-weight: bold; }
+    .timeline-content strong { color: var(--text-main); }
+
+    /* Contact Modal */
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(9, 13, 22, 0.85); backdrop-filter: blur(10px); display: none; justify-content: center; align-items: center; z-index: 2000; }
+    .modal-card { background: var(--bg-dark); border: 1px solid var(--border-subtle); width: 90%; max-width: 500px; padding: 35px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); position: relative; }
+    .modal-close { position: absolute; top: 20px; right: 20px; font-size: 20px; color: var(--text-muted); cursor: pointer; }
+    .modal-card h3 { font-size: 24px; margin-bottom: 10px; }
+    .modal-card p { color: var(--text-muted); font-size: 14px; margin-bottom: 20px; }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; font-size: 12px; font-family: 'JetBrains Mono', monospace; color: var(--accent); margin-bottom: 5px; text-transform: uppercase; }
+    .form-group input, .form-group textarea { width: 100%; padding: 12px; background: var(--bg-surface); border: 1px solid var(--border-subtle); color: white; border-radius: 8px; font-family: inherit; font-size: 14px; outline: none; }
+    .form-group input:focus, .form-group textarea:focus { border-color: var(--accent); }
+
+    /* Chat Widget */
+    #chat-widget { position: fixed; bottom: 30px; right: 30px; width: 400px; background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(20px); border: 1px solid var(--border-subtle); border-radius: 18px; box-shadow: 0 20px 40px rgba(0,0,0,0.7); display: flex; flex-direction: column; overflow: hidden; z-index: 1000; transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
+    #chat-widget.expanded-chat {
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 90%; max-width: 900px; height: 85vh; bottom: auto; right: auto;
+      box-shadow: 0 0 0 100vw rgba(9, 13, 22, 0.85), 0 30px 60px rgba(0,0,0,0.9);
+    }
+    .chat-header { background: #0f172a; color: var(--text-main); padding: 20px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); }
+    .chat-body { padding: 20px; display: none; flex-direction: column; height: calc(100% - 65px); }
+    #chat-widget.expanded-chat .chat-body { display: flex !important; }
+    .chat-history { height: 320px; overflow-y: auto; margin-bottom: 10px; padding-right: 5px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1; }
+    #chat-widget.expanded-chat .chat-history { height: auto; }
+    .chat-controls { display: flex; gap: 15px; align-items: center; }
+    .chat-controls i { color: var(--text-muted); transition: color 0.3s; }
+    .chat-controls i:hover { color: var(--text-main); }
+    .chip-container { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 15px; }
+    .chip { background: var(--accent-glow); color: var(--accent); border: 1px solid var(--accent-glow); padding: 6px 12px; border-radius: 20px; font-size: 12px; cursor: pointer; transition: 0.2s; white-space: nowrap; }
+    .chip:hover { background: var(--accent); color: white; }
+    .message-row { display: flex; }
+    .user-row { justify-content: flex-end; }
+    .ai-row { justify-content: flex-start; }
+    .msg-bubble { max-width: 85%; padding: 14px 18px; border-radius: 12px; font-size: 14px; line-height: 1.5; }
+    .user-bubble { background: var(--accent); color: white; border-bottom-right-radius: 4px; }
+    .ai-bubble { 
+      background: linear-gradient(145deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.7)); 
+      border: 1px solid var(--border-subtle); border-left: 4px solid var(--accent); border-bottom-left-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    .ai-bubble p { margin: 0 0 12px 0; color: #cbd5e1; line-height: 1.65; }
+    .ai-bubble p:last-child { margin: 0; }
+    .ai-bubble ul { margin: 10px 0 15px 0; padding-left: 20px; list-style-type: none; }
+    .ai-bubble li { margin-bottom: 8px; color: #cbd5e1; position: relative; }
+    .ai-bubble li::before { content: '▹'; position: absolute; left: -20px; color: var(--accent); font-weight: bold; }
+    .ai-bubble strong { color: #38bdf8; background: rgba(14, 165, 233, 0.15); padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+    .typing-indicator { display: flex; gap: 5px; padding: 16px 18px; align-items: center; height: 45px; }
+    .typing-indicator span { width: 6px; height: 6px; background-color: var(--accent); border-radius: 50%; animation: typingBounce 1.4s infinite ease-in-out both; }
+    .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+    .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+    @keyframes typingBounce { 0%, 80%, 100% { transform: scale(0); opacity: 0.4; } 40% { transform: scale(1); opacity: 1; } }
+
+    .input-area { display: flex; gap: 10px; flex-shrink: 0; }
+    #user-input { flex-grow: 1; padding: 14px; background: #090d16; border: 1px solid var(--border-subtle); color: white; border-radius: 10px; font-family: inherit; font-size: 14px; outline: none; }
+    #user-input:focus { border-color: var(--accent); }
+    #user-input:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    @media (max-width: 900px) {
+      #home { flex-direction: column; text-align: center; justify-content: center; gap: 50px; }
+      .hero-text h1 { font-size: 38px; min-height: 110px; }
+      .avatar-glow-wrapper { width: 300px; height: 300px; }
+      .btn-group { justify-content: center; }
+      .stats-row { justify-content: center; flex-wrap: wrap; gap: 20px; }
+      .nav-links { display: none; }
+      .mobile-menu-btn { display: block !important; }
+      .nav-links.mobile-open {
+        display: flex !important; position: absolute; top: 70px; left: 0; width: 100%;
+        flex-direction: column; background: rgba(9, 13, 22, 0.95); padding: 20px; border-bottom: 1px solid var(--border-subtle); gap: 20px;
+      }
+      #chat-widget { width: calc(100% - 40px); bottom: 20px; right: 20px; }
+      #chat-widget.expanded-chat { width: 95%; height: 90vh; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <header id="main-header">
+    <nav>
+      <a href="#home" class="logo">Erick<span>.</span></a>
+      <i class="fa-solid fa-bars mobile-menu-btn" onclick="toggleMobileMenu()"></i>
+      <div class="nav-links">
+        <a href="#home" class="nav-item">Home</a>
+        <a href="#experience" class="nav-item">Experience</a>
+        <a href="#skills" class="nav-item">Tech Stack</a>
+        <a href="#projects" class="nav-item">Projects</a>
+        <a href="#education" class="nav-item">Education</a>
+      </div>
+    </nav>
+  </header>
+
+  <section id="home">
+    <div class="container" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; width: 100%;">
+      <div class="hero-text reveal active">
+        <span class="greeting">Bulacan, Philippines</span>
+        <h1>Hello, I'm Erick.<br>I am a <span class="typed-text"></span><span class="cursor">&nbsp;</span></h1>
+        <p>Subject Matter Expert & AI Engineer specializing in Google Workspace infrastructure, Gemini 2.5 API custom tooling, Databricks data engineering, and full-stack development.</p>
+        
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="toggleChat();"><i class="fa-solid fa-robot"></i> Ask My AI</button>
+          <button class="btn btn-outline" onclick="openContactModal()"><i class="fa-solid fa-envelope"></i> Contact Me</button>
+          <a href="https://www.linkedin.com/in/erick-vendivil-377b5b3b7" target="_blank" class="btn btn-outline"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-item">
+            <h3><span class="counter" data-target="3">0</span>+</h3>
+            <p>Years IT Support</p>
+          </div>
+          <div class="stat-item">
+            <h3><span class="counter" data-target="2">0</span></h3>
+            <p>Enterprise Apps</p>
+          </div>
+          <div class="stat-item">
+            <h3><span class="counter" data-target="100">0</span>%</h3>
+            <p>SME Focus</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="hero-image reveal active">
+        <div class="avatar-glow-wrapper">
+          <div class="image-wrapper">
+            <img src="https://drive.google.com/thumbnail?id=1kIKJO3Vu9qh8v3WAxJBoO91My-Zfi8wV&sz=w800" alt="Erick Vendivil">
+          </div>
+          <div class="status-badge">
+            <span class="status-dot"></span>
+            <span>Workspace Escalations SME</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANIMATED TOOLING TICKER -->
+  <div class="marquee-wrapper reveal active">
+    <div class="marquee-track">
+      <div class="tool-pill"><i class="devicon-google-plain colored"></i><span>Google Workspace</span></div>
+      <div class="tool-pill"><i class="fa-solid fa-brain" style="color: #a855f7;"></i><span>Gemini 2.5 API</span></div>
+      <div class="tool-pill"><i class="devicon-python-plain colored"></i><span>Python</span></div>
+      <div class="tool-pill"><i class="devicon-react-original colored"></i><span>React</span></div>
+      <div class="tool-pill"><i class="devicon-spring-plain colored"></i><span>Spring Boot</span></div>
+      <div class="tool-pill"><i class="devicon-apache-plain colored"></i><span>Apache Spark</span></div>
+      <div class="tool-pill"><i class="devicon-angularjs-plain colored"></i><span>Angular</span></div>
+      <div class="tool-pill"><i class="devicon-jenkins-line colored"></i><span>Jenkins</span></div>
+      <div class="tool-pill"><i class="devicon-java-plain colored"></i><span>Java EE</span></div>
+      <div class="tool-pill"><i class="fa-solid fa-terminal" style="color: #0ea5e9;"></i><span>GAM Admin</span></div>
+
+      <!-- Duplicate Loop -->
+      <div class="tool-pill"><i class="devicon-google-plain colored"></i><span>Google Workspace</span></div>
+      <div class="tool-pill"><i class="fa-solid fa-brain" style="color: #a855f7;"></i><span>Gemini 2.5 API</span></div>
+      <div class="tool-pill"><i class="devicon-python-plain colored"></i><span>Python</span></div>
+      <div class="tool-pill"><i class="devicon-react-original colored"></i><span>React</span></div>
+      <div class="tool-pill"><i class="devicon-spring-plain colored"></i><span>Spring Boot</span></div>
+      <div class="tool-pill"><i class="devicon-apache-plain colored"></i><span>Apache Spark</span></div>
+      <div class="tool-pill"><i class="devicon-angularjs-plain colored"></i><span>Angular</span></div>
+      <div class="tool-pill"><i class="devicon-jenkins-line colored"></i><span>Jenkins</span></div>
+      <div class="tool-pill"><i class="devicon-java-plain colored"></i><span>Java EE</span></div>
+      <div class="tool-pill"><i class="fa-solid fa-terminal" style="color: #0ea5e9;"></i><span>GAM Admin</span></div>
+    </div>
+  </div>
+
+  <section id="experience" class="page-section">
+    <div class="container reveal">
+      <h2 class="section-title">Professional Experience</h2>
+      <div class="timeline">
+
+        <div class="timeline-item reveal">
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <div class="timeline-title">
+                <h3>Subject Matter Expert (SME) – Google Workspace</h3>
+                <h4>Accenture Inc.</h4>
+              </div>
+              <span class="timeline-date">Dec 2024 – Present</span>
+            </div>
+            <ul>
+              <li>Directed advanced troubleshooting for complex chat/email tickets supporting L1/L2 agents, accelerating issue resolution and hitting Total Resolution Time targets.</li>
+              <li>Collaborated with Product Engineering on trend analysis and critical bug escalations to enhance platform reliability.</li>
+              <li><strong>AI Innovation:</strong> Engineered an AI-powered support web application using the <strong>Gemini 2.5 API</strong> for automated email generation, interactive diagnostic decision trees, dynamic knowledge bases, and compliance logging.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <div class="timeline-title">
+                <h3>Technical Support Representative (L1)</h3>
+                <h4>Accenture • Google Workspace Support</h4>
+              </div>
+              <span class="timeline-date">Jan 2024 – Dec 2024</span>
+            </div>
+            <ul>
+              <li>Resolved complex cloud service issues by translating technical concepts into clear, actionable resolution paths.</li>
+              <li>Enforced strict adherence to protocols and SOPs, minimizing miscommunication and compliance gaps.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <div class="timeline-title">
+                <h3>Prompt Engineer</h3>
+                <h4>Accenture</h4>
+              </div>
+              <span class="timeline-date">Mar 2023 – Jan 2024</span>
+            </div>
+            <ul>
+              <li>Accelerated Generative AI performance utilizing <strong>Supervised Fine-Tuning (SFT)</strong> and <strong>Retrieval-Augmented Generation (RAG)</strong>.</li>
+              <li>Designed robust system instructions and conversational flows while enforcing Responsible AI (Helpful, Honest, Harmless) principles.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <div class="timeline-title">
+                <h3>Data Engineer (Databricks Certified Associate)</h3>
+                <h4>Accenture</h4>
+              </div>
+              <span class="timeline-date">Mid 2023 – Late 2023</span>
+            </div>
+            <ul>
+              <li>Engineered scalable ETL data pipelines using <strong>Databricks</strong>, <strong>Apache Spark</strong>, and <strong>Spark SQL</strong>.</li>
+              <li>Designed hybrid data solutions integrating traditional warehousing with Lakehouse architecture.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <div class="timeline-title">
+                <h3>Full Stack Developer</h3>
+                <h4>Accenture (Bootcamp & Upskilling)</h4>
+              </div>
+              <span class="timeline-date">Aug 2022 – Feb 2023</span>
+            </div>
+            <ul>
+              <li>Developed the "Billing Automated Requisition Service" (BARS) and internal portal using <strong>React</strong> and <strong>Java Spring Boot</strong>.</li>
+              <li>Engineered REST APIs for cross-platform data fetching and managed CI/CD pipelines via <strong>Jenkins</strong> and <strong>Tomcat</strong>.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="page-section">
+    <div class="container reveal">
+      <h2 class="section-title">Technical Expertise & Tools</h2>
+      <div class="grid-layout">
+        
+        <div class="card skill-card">
+          <div class="tool-card-icon"><i class="devicon-google-plain colored"></i></div>
+          <h3>Workspace Infrastructure</h3>
+          <p>Enterprise administration, escalation management, feature governance, and tenant-level configurations.</p>
+          <div class="tool-badge-list">
+            <span class="tool-badge">Admin Console</span>
+            <span class="tool-badge">Google Vault</span>
+            <span class="tool-badge">GAM</span>
+            <span class="tool-badge">ChromeOS</span>
+            <span class="tool-badge">MDM</span>
+            <span class="tool-badge">Google Voice</span>
+          </div>
+        </div>
+
+        <div class="card skill-card">
+          <div class="tool-card-icon"><i class="fa-solid fa-microchip" style="color: #a855f7;"></i></div>
+          <h3>AI & Prompt Engineering</h3>
+          <p>Developing agentic decision trees, context-aware prompt architecture, and GenAI automation engines.</p>
+          <div class="tool-badge-list">
+            <span class="tool-badge">Gemini 2.5 API</span>
+            <span class="tool-badge">RAG Frameworks</span>
+            <span class="tool-badge">SFT</span>
+            <span class="tool-badge">System Prompts</span>
+            <span class="tool-badge">Responsible AI</span>
+          </div>
+        </div>
+
+        <div class="card skill-card">
+          <div class="tool-card-icon"><i class="devicon-apache-plain colored"></i></div>
+          <h3>Data & Lakehouse</h3>
+          <p>Extracting, transforming, and building high-throughput ETL data pipelines for cloud environments.</p>
+          <div class="tool-badge-list">
+            <span class="tool-badge">Databricks</span>
+            <span class="tool-badge">Apache Spark</span>
+            <span class="tool-badge">Spark SQL</span>
+            <span class="tool-badge">Lakehouse</span>
+            <span class="tool-badge">ETL Pipelines</span>
+          </div>
+        </div>
+
+        <div class="card skill-card">
+          <div class="tool-card-icon"><i class="devicon-react-original colored"></i></div>
+          <h3>Full-Stack Development</h3>
+          <p>Building responsive frontend interfaces paired with resilient RESTful backends and CI/CD pipelines.</p>
+          <div class="tool-badge-list">
+            <span class="tool-badge">Java (Spring Boot)</span>
+            <span class="tool-badge">JavaScript (React, Angular)</span>
+            <span class="tool-badge">Python</span>
+            <span class="tool-badge">PHP</span>
+            <span class="tool-badge">Jenkins</span>
+            <span class="tool-badge">Tomcat</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="page-section">
+    <div class="container reveal">
+      <h2 class="section-title">Featured Projects</h2>
+      <div class="grid-layout">
+
+        <div class="card project-card">
+          <div style="font-family: 'JetBrains Mono'; color: var(--accent); font-size: 13px; margin-bottom: 10px;">AI Enterprise Tooling</div>
+          <h3>Gemini 2.5 AI Support Web App</h3>
+          <p>Engineered an internal support automation tool for Workspace agents featuring automated email composition, interactive diagnostic decision trees, and compliance session logging.</p>
+          <div class="tech-stack">
+            <span>Gemini 2.5 API</span>
+            <span>Apps Script</span>
+            <span>Agentic AI</span>
+            <span>Decision Trees</span>
+          </div>
+        </div>
+
+        <div class="card project-card">
+          <div style="font-family: 'JetBrains Mono'; color: var(--accent); font-size: 13px; margin-bottom: 10px;">Full-Stack Enterprise App</div>
+          <h3>BARS Portal</h3>
+          <p>Developed the "Billing Automated Requisition Service" and internal cafeteria portal. Engineered REST APIs for cross-platform data fetching with CI/CD automation.</p>
+          <div class="tech-stack">
+            <span>React</span>
+            <span>Spring Boot</span>
+            <span>Jenkins</span>
+            <span>Tomcat</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="education" class="page-section" style="border-bottom: none;">
+    <div class="container reveal">
+      <h2 class="section-title">Education</h2>
+      <div class="grid-layout">
+        <div class="card skill-card">
+          <h3>Bulacan State University</h3>
+          <p style="color: var(--accent); margin-bottom: 10px; font-weight: 600;">Graduated 2022</p>
+          <p><strong>BS in Information Technology (Web & Mobile App Dev)</strong><br>
+          Technical Focus: Java EE, SQL, PHP, React, and JavaScript.</p>
+        </div>
+        <div class="card skill-card">
+          <h3>Guiguinto National Vocational High School</h3>
+          <p style="color: var(--accent); margin-bottom: 10px; font-weight: 600;">Senior High School – ICT Strand</p>
+          <p>Developed a "Computerized Enrollment System" using C#, Visual Basic, and MySQL.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT MODAL -->
+  <div class="modal-overlay" id="contact-modal">
+    <div class="modal-card">
+      <i class="fa-solid fa-xmark modal-close" onclick="closeContactModal()"></i>
+      <h3>Send a Message</h3>
+      <p>Directly notifies my inbox via Apps Script Gmail API.</p>
+      <form id="contact-form" onsubmit="submitContactForm(event)">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" id="contact-name" required placeholder="Recruiter / Company">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="contact-email" required placeholder="your.name@company.com">
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea id="contact-msg" rows="4" required placeholder="Hi Erick, we'd love to chat..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;" id="contact-btn">Send Email</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- CHAT WIDGET -->
+  <div id="chat-widget">
+    <div class="chat-header" onclick="toggleChat()">
+      <span><i class="fa-solid fa-robot" style="color: var(--accent); margin-right: 8px;"></i> Ask AI Assistant</span>
+      <div class="chat-controls">
+        <i class="fa-solid fa-expand" id="expand-icon" onclick="expandChat(event)" title="Expand Chat"></i>
+        <i class="fa-solid fa-chevron-up" id="toggle-icon" title="Minimize Chat"></i>
+      </div>
+    </div>
+    <div class="chat-body" id="chat-body">
+      <div class="chat-history" id="chat-history">
+        <div class="message-row ai-row">
+          <div class="msg-bubble ai-bubble">Hi! I am powered by Gemini. Ask me about Erick's Workspace SME role, Gemini 2.5 support tool, or Databricks experience!</div>
+        </div>
+      </div>
+      <div class="chip-container">
+        <div class="chip" onclick="sendChip('Tell me about his Gemini 2.5 support app')">🤖 Gemini App Details</div>
+        <div class="chip" onclick="sendChip('What tools does he use as a Workspace SME?')">🛠️ Workspace Tools</div>
+        <div class="chip" onclick="sendChip('Why should we hire Erick?')">🎯 Why hire Erick?</div>
+      </div>
+      <div class="input-area">
+        <input type="text" id="user-input" placeholder="Type your query..." onkeypress="handleKeyPress(event)">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Configuration: Replace with your published Google Apps Script Web App URL
+    const GAS_API_URL = "YOUR_APPS_SCRIPT_DEPLOYMENT_URL_HERE";
+
+    const header = document.getElementById("main-header");
+    const sections = document.querySelectorAll("section");
+    const navLinks = document.querySelectorAll(".nav-item");
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 50) {
+        header.classList.add("scrolled");
+      } else {
+        header.classList.remove("scrolled");
+      }
+
+      let current = "";
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop;
+        if (window.scrollY >= (sectionTop - 200)) {
+          current = section.getAttribute("id");
+        }
+      });
+
+      navLinks.forEach((link) => {
+        link.classList.remove("active");
+        if (link.getAttribute("href").includes(current)) {
+          link.classList.add("active");
+        }
+      });
+    });
+
+    const typedTextSpan = document.querySelector(".typed-text");
+    const textArray = ["Workspace SME", "AI Prompt Engineer", "Full Stack Developer"];
+    const typingDelay = 100, erasingDelay = 50, newTextDelay = 2000;
+    let textArrayIndex = 0, charIndex = 0;
+
+    function type() {
+      if (charIndex < textArray[textArrayIndex].length) {
+        typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
+        charIndex++;
+        setTimeout(type, typingDelay);
+      } else {
+        setTimeout(erase, newTextDelay);
+      }
+    }
+    function erase() {
+      if (charIndex > 0) {
+        typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
+        charIndex--;
+        setTimeout(erase, erasingDelay);
+      } else {
+        textArrayIndex++;
+        if (textArrayIndex >= textArray.length) textArrayIndex = 0;
+        setTimeout(type, typingDelay + 1100);
+      }
+    }
+    document.addEventListener("DOMContentLoaded", function() { if(textArray.length) setTimeout(type, newTextDelay + 250); });
+
+    function reveal() {
+      var reveals = document.querySelectorAll(".reveal");
+      for (var i = 0; i < reveals.length; i++) {
+        var windowHeight = window.innerHeight;
+        var elementTop = reveals[i].getBoundingClientRect().top;
+        if (elementTop < windowHeight - 100) {
+          reveals[i].classList.add("active");
+        }
+      }
+    }
+    window.addEventListener("scroll", reveal);
+
+    const counters = document.querySelectorAll('.counter');
+    counters.forEach(counter => {
+      const updateCount = () => {
+        const target = +counter.getAttribute('data-target');
+        const count = +counter.innerText;
+        const inc = target / 200;
+        if (count < target) {
+          counter.innerText = Math.ceil(count + inc);
+          setTimeout(updateCount, 15);
+        } else {
+          counter.innerText = target;
+        }
+      };
+      setTimeout(updateCount, 1000); 
+    });
+
+    function toggleMobileMenu() {
+      const navLinks = document.querySelector(".nav-links");
+      navLinks.classList.toggle("mobile-open");
+    }
+
+    function openContactModal() { document.getElementById("contact-modal").style.display = "flex"; }
+    function closeContactModal() { document.getElementById("contact-modal").style.display = "none"; }
+
+    function submitContactForm(e) {
+      e.preventDefault();
+      const btn = document.getElementById("contact-btn");
+      btn.disabled = true;
+      btn.innerText = "Sending...";
+
+      const payload = {
+        action: "contact",
+        name: document.getElementById("contact-name").value,
+        email: document.getElementById("contact-email").value,
+        contactMessage: document.getElementById("contact-msg").value
+      };
+
+      fetch(GAS_API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
+      })
+      .then(res => res.json())
+      .then(data => {
+        alert("Thanks! Your message has been sent directly to Erick.");
+        closeContactModal();
+        document.getElementById("contact-form").reset();
+        btn.disabled = false;
+        btn.innerText = "Send Email";
+      })
+      .catch(err => {
+        alert("Unable to send message directly right now. Please email erickvendivil15@gmail.com.");
+        btn.disabled = false;
+        btn.innerText = "Send Email";
+      });
+    }
+
+    function expandChat(event) {
+      event.stopPropagation();
+      const chatWidget = document.getElementById("chat-widget");
+      const expandIcon = document.getElementById("expand-icon");
+      const chatBody = document.getElementById("chat-body");
+      const toggleIcon = document.getElementById("toggle-icon");
+
+      if (chatWidget.classList.contains("expanded-chat")) {
+        chatWidget.classList.remove("expanded-chat");
+        expandIcon.className = "fa-solid fa-expand";
+      } else {
+        chatWidget.classList.add("expanded-chat");
+        expandIcon.className = "fa-solid fa-compress";
+        chatBody.style.display = "flex";
+        toggleIcon.className = "fa-solid fa-chevron-down";
+      }
+    }
+
+    function toggleChat() {
+      const chatWidget = document.getElementById("chat-widget");
+      const expandIcon = document.getElementById("expand-icon");
+      var body = document.getElementById("chat-body");
+      var icon = document.getElementById("toggle-icon");
+      
+      if (body.style.display === "flex") {
+        body.style.display = "none";
+        icon.className = "fa-solid fa-chevron-up";
+        
+        if (chatWidget.classList.contains("expanded-chat")) {
+          chatWidget.classList.remove("expanded-chat");
+          expandIcon.className = "fa-solid fa-expand";
+        }
+      } else {
+        body.style.display = "flex";
+        icon.className = "fa-solid fa-chevron-down";
+        document.getElementById("user-input").focus();
+      }
+    }
+
+    function sendChip(text) {
+      document.getElementById("user-input").value = text;
+      handleKeyPress({key: "Enter"}); 
+    }
+
+    function escapeHtml(text) {
+      var div = document.createElement('div');
+      div.innerText = text;
+      return div.innerHTML;
+    }
+
+    function handleKeyPress(event) {
+      if (event.key === "Enter") {
+        var inputField = document.getElementById("user-input");
+        var message = inputField.value.trim();
+        if (!message) return;
+        
+        inputField.disabled = true;
+        inputField.placeholder = "Gemini is thinking...";
+
+        var historyDiv = document.getElementById("chat-history");
+        historyDiv.innerHTML += `<div class="message-row user-row"><div class="msg-bubble user-bubble">${escapeHtml(message)}</div></div>`;
+        historyDiv.innerHTML += `
+          <div class="message-row ai-row" id="loading">
+            <div class="msg-bubble ai-bubble typing-indicator">
+              <span></span><span></span><span></span>
+            </div>
+          </div>`;
+          
+        inputField.value = ""; 
+        historyDiv.scrollTop = historyDiv.scrollHeight;
+
+        fetch(GAS_API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({ action: "chat", message: message })
+        })
+        .then(res => res.json())
+        .then(data => {
+          var loadingEl = document.getElementById("loading");
+          if (loadingEl) loadingEl.remove();
+
+          var formattedResponse = marked.parse(data.response);
+          historyDiv.innerHTML += `<div class="message-row ai-row"><div class="msg-bubble ai-bubble">${formattedResponse}</div></div>`;
+          historyDiv.scrollTop = historyDiv.scrollHeight;
+
+          inputField.disabled = false;
+          inputField.placeholder = "Type your query...";
+          inputField.focus();
+        })
+        .catch(err => {
+          var loadingEl = document.getElementById("loading");
+          if (loadingEl) loadingEl.remove();
+          
+          historyDiv.innerHTML += `<div class="message-row ai-row"><div class="msg-bubble ai-bubble">Connection error. Please try again or email erickvendivil15@gmail.com.</div></div>`;
+          historyDiv.scrollTop = historyDiv.scrollHeight;
+
+          inputField.disabled = false;
+          inputField.placeholder = "Type your query...";
+          inputField.focus();
+        });
+      }
+    }
+  </script>
+</body>
+</html>
