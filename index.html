@@ -562,12 +562,11 @@
     <div class="modal-card" style="max-width: 900px; height: 85vh; display: flex; flex-direction: column;">
       <i class="fa-solid fa-xmark modal-close" onclick="closeResumeModal()"></i>
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-right: 30px;">
-        <h3 style="font-size: 20px;">Resume</h3>
+        <h3 style="font-size: 20px;">Curriculum Vitae</h3>
         <a href="./resume.pdf" download="Erick_Vendivil_CV.pdf" class="btn btn-primary" style="padding: 8px 16px; font-size: 13px;">
           <i class="fa-solid fa-download"></i> Download PDF
         </a>
       </div>
-      <!-- Points to resume.pdf in the root of your GitHub repository -->
       <iframe src="./resume.pdf" style="width: 100%; height: 100%; border: 1px solid var(--border-subtle); border-radius: 12px; background: #fff;"></iframe>
     </div>
   </div>
@@ -600,7 +599,7 @@
 
   <script>
     // Replace with your published Apps Script Web App URL
-    const GAS_API_URL = "https://script.google.com/macros/s/AKfycbzZyrTj7eLSIvMDU82xsIhpsHtp4xJz2M0m6WvKCs6sKtwczDWdOsp7aRk1kvnx4vbw/exec";
+    const GAS_API_URL = "YOUR_APPS_SCRIPT_DEPLOYMENT_URL_HERE";
 
     const header = document.getElementById("main-header");
     const sections = document.querySelectorAll("section");
@@ -809,7 +808,8 @@
           var loadingEl = document.getElementById("loading");
           if (loadingEl) loadingEl.remove();
 
-          var formattedResponse = marked.parse(data.response);
+          var replyText = data.response || data.message || "No response text received.";
+          var formattedResponse = marked.parse(replyText);
           historyDiv.innerHTML += `<div class="message-row ai-row"><div class="msg-bubble ai-bubble">${formattedResponse}</div></div>`;
           historyDiv.scrollTop = historyDiv.scrollHeight;
 
